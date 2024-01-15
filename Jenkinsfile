@@ -18,7 +18,7 @@ pipeline {
             }
         post {
             success {
-                archiveArtifacts artifacts: '**/openmrs-core-*.jar'
+                archiveArtifacts artifacts: '**/openmrs-core-*.war'
                 junit testResults: '**/TEST-*.xml' 
             }
         }
