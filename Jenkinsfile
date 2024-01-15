@@ -7,10 +7,9 @@ pipeline{
     }
     triggers {
         pollSCM('* * * * *')
-    }
-    
+    } 
     stages{
-        stage('git') {
+        stage('urls') {
             steps{
                 git url: 'https://github.com/Hitansu26/openmrs-core.git',
                     branch: 'dev'
