@@ -1,26 +1,27 @@
-pipeline{
-    agent{
-        label "MAVEN"
+pipeline {
+    agent { label  'MAVEN' }
+    options { timeout(time: 30, unit: 'MINUTES') }
+    triggers { 
+        pollSCM('* * * * *') 
     }
-    options {
-        timeout(time: 30, unit: 'MINUTES')
-    }
-    triggers {
-        pollSCM('* * * * *')
-    } 
-    stages{
-        stage('urls') {
-            steps{
-                git url: 'https://github.com/Hitansu26/openmrs-core.git',
+    stages {
+        stage('git') {
+            steps {
+                git url: 'https://github.com/Hitansu26/openmrs-core.git', 
                     branch: 'dev'
             }
+           
+        }
         stage('build') {
-            steps{
+            steps {
                 sh 'mvn clean package'
             }
+        post {
+            success {
+                archiveArtifacts artifacts: '**/spring-petclinic-*.jar'
+                junit testResults: '**/TEST-*.xml' 
+            }
         }
-          
         }
     }
-
 }
