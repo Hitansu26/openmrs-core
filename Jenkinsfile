@@ -18,7 +18,7 @@ pipeline {
             }
         post {
             success {
-                archiveArtifacts artifacts: '**/spring-petclinic-*.jar'
+                archiveArtifacts artifacts: '**/openmrs-core-*.jar'
                 junit testResults: '**/TEST-*.xml' 
             }
         }
