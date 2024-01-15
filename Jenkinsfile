@@ -5,14 +5,17 @@ pipeline{
     options {
         timeout(time: 30, unit: 'MINUTES')
     }
+    triggers {
+        pollSCM('* * * * *')
+    }
     
     stages{
-        stage("GIT"){
+        stage('git') {
             steps{
                 git url: 'https://github.com/Hitansu26/openmrs-core.git',
                     branch: 'dev'
             }
-        stage("BUILD"){
+        stage('build') {
             steps{
                 sh 'mvn clean package'
             }
